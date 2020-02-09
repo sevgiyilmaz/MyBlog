@@ -1,0 +1,86 @@
+﻿@model IEnumerable<MyBlog.Models.Blog>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Blog List</h2>
+<hr />
+<p>
+    @Html.ActionLink("Create New", "Create",null,new {@class="btn btn-info" })
+</p>
+<hr />
+
+@if (TempData["Blog"]!=null)
+{
+    var blog = (MyBlog.Models.Blog)TempData["Blog"];
+    <div class="alert alert-success"role="alert">
+        <strong><span class="glyphicon glyphicon-ok"></span>@blog.Title</strong>Was Recorded.
+    </div>
+}
+
+<table class="table table-bordered table-hover table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Category.CategoryName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AddDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsActive)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsHome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ImageURL)
+        </th>
+        <th style="width:101px;"></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category.CategoryName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>  
+        <td>
+            @Html.DisplayFor(modelItem => item.AddDate)
+        </td>
+        <td>
+            @if (item.IsActive)
+            {
+                <label class="label label-success">Active</label>
+            }
+            else
+            {
+                <label class="label label-danger">Not Active</label>
+            }
+        </td>
+        <td>
+            @if (item.IsHome)
+            {
+                <label class="label label-success">Home</label>
+            }
+            else
+            {
+                <label class="label label-danger">Not Home</label>
+            }            
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ImageURL)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id },new {@class="btn btn-info btn-xs" })        
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id },new {@class="btn btn-danger btn-xs" })
+        </td>
+    </tr>
+}
+
+</table>

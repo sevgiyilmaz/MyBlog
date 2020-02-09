@@ -1,0 +1,32 @@
+﻿@model IEnumerable<MyBlog.Models.BlogModel>
+
+
+@if (Model.Count() == 0)
+{
+    <div class="alert alert-warning">
+        <span class="glyphicon glyphicon-info-sign"></span>
+        <strong>No Records Found.</strong>
+    </div>
+}
+else
+{
+    foreach (var blog in Model)
+    {
+        <div class="blog">
+            <h3 class="page-header">
+                @blog.Title
+            </h3>
+            <p>
+                <span class="glyphicon glyphicon-time"></span>
+                @blog.AddDate
+            </p>
+            <hr />
+            <img class="img-responsive" src="http://placehold.it/900x300" alt="" />
+            <hr />
+            <p>
+                @blog.Description
+            </p>
+            @Html.ActionLink("More...", "Details", "Blog", new { id = @blog.Id }, new { @class = "btn btn-primary" })
+        </div>
+    }
+}
